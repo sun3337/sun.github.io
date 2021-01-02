@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://datascript.top">
-  <title>Tag: OpenCv | PAI13</title>
+  <title>构建一个精简的Linux操作系统 | PAI13</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="PAI13">
-<meta property="og:url" content="http://datascript.top/tags/OpenCv/index.html">
+  <meta name="description" content="**说明：操作环境 deepin20 ,qemu试运行构建成功的精简操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建一个精简的Linux操作系统">
+<meta property="og:url" content="http://datascript.top/2020/09/13/linux_core/index.html">
 <meta property="og:site_name" content="PAI13">
+<meta property="og:description" content="**说明：操作环境 deepin20 ,qemu试运行构建成功的精简操作系统">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://datascript.top/assets/img/0002.jpg">
+<meta property="og:image" content="http://datascript.top/assets/img/0003.jpg">
+<meta property="og:image" content="http://datascript.top/assets/img/0004.jpg">
+<meta property="og:image" content="http://datascript.top/assets/img/0005.jpg">
+<meta property="article:published_time" content="2020-09-13T15:05:56.000Z">
+<meta property="article:modified_time" content="2021-01-02T14:35:52.125Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="内核裁剪">
+<meta property="article:tag" content="qemu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://datascript.top/assets/img/0002.jpg">
   
     <link rel="alternative" href="/atom.xml" title="PAI13" type="application/atom+xml">
   
@@ -136,68 +148,226 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-linux_core" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/26/python_opencv/" class="archive-article-date">
-  	<time datetime="2019-05-26T15:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/26/python_opencv/">Python3 如何利用OpenCv 实现电脑摄像头自动捕捉图像  并且打包python程序为Windows应用程序  后缀为 .exe</a>
+    <h1 class="article-title" itemprop="name">
+      构建一个精简的Linux操作系统
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/09/13/linux_core/" class="archive-article-date">
+  	<time datetime="2020-09-13T15:05:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/assets/img/0002.jpg"></p>
+<p>**说明：操作环境 deepin20 ,qemu试运行构建成功的精简操作系统</p>
+<a id="more"></a>
+
+<h4 id="获取内核源码"><a href="#获取内核源码" class="headerlink" title="获取内核源码"></a>获取内核源码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir linux_core</span><br><span class="line">cd linux_core</span><br><span class="line">sudo curl https:&#x2F;&#x2F;cdn.kernel.org&#x2F;pub&#x2F;linux&#x2F;kernel&#x2F;v4.x&#x2F;linux-4.10.7.tar.xz | tar xJf -</span><br><span class="line">cd linux-4.10.7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>NOTE : <code>curl</code>是一个多协议的网络通讯工具。在上一条命令中，<code>curl</code>从互联网获取内核源码的压缩包，并借助管道(pipe)将数据提供给文件存档工具<code>tar</code>，<code>tar</code>将<code>curl</code>获取的数据解压到当前目录中。 参数中<code>x</code>表示解压，<code>J</code>表示解压xz格式的数据，<code>f</code>表示指定输入文件，<code>-</code>表示使用标准输入作为输入文件。</p>
+<h4 id="编译裁剪内核"><a href="#编译裁剪内核" class="headerlink" title="编译裁剪内核"></a>编译裁剪内核</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make allnoconfig         &#x2F;&#x2F;生成一个空的配置文件</span><br></pre></td></tr></table></figure>
+<p>修改内核配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make menuconfig          &#x2F;&#x2F;启动配置编辑器</span><br></pre></td></tr></table></figure>
+<p>打开的界面如下：</p>
+<p><img src="/assets/img/0003.jpg"></p>
+<p>NOTE : 方向键可以移动光标用以确定底部功能键的执行，空格键用于选中（或取消选中）当前选项，回车键进入子菜单。</p>
+<p>此次配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">打开64位内核支持：</span><br><span class="line"></span><br><span class="line">[*] 64-bit kernel</span><br><span class="line">为了让内核能够打印调试信息，我们需要打开kernel print function的支持：</span><br><span class="line"></span><br><span class="line">-&gt; General setup</span><br><span class="line">  -&gt; Configure standard kernel features</span><br><span class="line">[*] Enable support for printk</span><br><span class="line"></span><br><span class="line">打开内存文件系统的支持：</span><br><span class="line"></span><br><span class="line">-&gt; General setup</span><br><span class="line">[*] Initial RAM filesystem and RAM disk (initramfs&#x2F;initrd) support</span><br><span class="line"></span><br><span class="line">打开ELF可执行文件的支持：</span><br><span class="line"></span><br><span class="line">-&gt; Executable file formats &#x2F; Emulations</span><br><span class="line">[*] Kernel support for ELF binaries</span><br><span class="line"></span><br><span class="line">打开TTY驱动的支持：</span><br><span class="line"></span><br><span class="line">-&gt; Device Drivers</span><br><span class="line">  -&gt; Character devices</span><br><span class="line">[*] Enable TTY</span><br><span class="line"></span><br><span class="line">为了能让QEMU能正常显示终端，需要打开UART串口的支持：</span><br><span class="line"></span><br><span class="line">-&gt; Device Drivers</span><br><span class="line">  -&gt; Character devices</span><br><span class="line">    -&gt; Serial drivers</span><br><span class="line">[*] 8250&#x2F;16550 and compatible serial support</span><br><span class="line">[*]   Console on 8250&#x2F;16550 and compatible serial port</span><br><span class="line"></span><br><span class="line">为了让标准UNIX工具能够正常工作（如获取启动时间），需要打开&#x2F;proc和sysfs文件系统的支持：</span><br><span class="line"></span><br><span class="line">-&gt; File systems</span><br><span class="line">  -&gt; Pseudo filesystems</span><br><span class="line">[*] &#x2F;proc file system support</span><br><span class="line">[*] sysfs file system support</span><br><span class="line"></span><br><span class="line">全部设置完成后，保存修改后退出配置编辑器。</span><br></pre></td></tr></table></figure>
+<p>编译内核：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make</span><br></pre></td></tr></table></figure>
+<p>编译过程如下图：</p>
+<p><img src="/assets/img/0004.jpg"></p>
+<p>此过程漫长，可以喝杯咖啡。</p>
+<p>如果出现 <code> make: warning:  Clock skew detected.  Your build may be incomplete.</code></p>
+<p>解决方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find .&#x2F; -type f |xargs touch    &#x2F;&#x2F;将所有文件都重新touch一遍，更新到本地系统的时间，再make就没问题了</span><br></pre></td></tr></table></figure>
+
+
+<p>编译完成，将编译结果复制到 /home/sun/linux_core/mini_os 目录下备用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -pv &#x2F;home&#x2F;sun&#x2F;linux_core&#x2F;mini_os </span><br><span class="line">sudo cp arch&#x2F;x86_64&#x2F;boot&#x2F;bzImage &#x2F;home&#x2F;sun&#x2F;linuxx_core&#x2F;mini_os&#x2F;bzImage</span><br></pre></td></tr></table></figure>
+<h4 id="制作根文件系统"><a href="#制作根文件系统" class="headerlink" title="制作根文件系统"></a>制作根文件系统</h4><p>目的：Linux系统需要一个文件系统作为运行的基础，其中有特殊设备节点、程序和普通文件等。</p>
+<p>过程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">内核需要挂载一些虚拟文件系统，用于与用户态程序交换信息，这些文件系统仅在运行时会被挂载，并不占用磁盘空间，我们需要在文件系统中创建这些目录：</span><br><span class="line"></span><br><span class="line"># mkdir -pv &#x2F;home&#x2F;sun&#x2F;linux_core&#x2F;mini_os&#x2F;rootfs&#x2F;&#123;dev,proc,sys,run&#125;</span><br><span class="line"></span><br><span class="line">创建初始设备节点</span><br><span class="line">系统初始化依赖于几个设备节点，我们需要逐个创建它们：</span><br><span class="line"></span><br><span class="line"># cd &#x2F;home&#x2F;sun&#x2F;linux_core&#x2F;mini-os&#x2F;rootfs</span><br><span class="line"># mknod -m 622 .&#x2F;dev&#x2F;console c 5 1</span><br><span class="line"># mknod -m 666 .&#x2F;dev&#x2F;null c 1 3</span><br><span class="line"># mknod -m 666 .&#x2F;dev&#x2F;zero c 1 5</span><br><span class="line"># mknod -m 666 .&#x2F;dev&#x2F;ptmx c 5 2</span><br><span class="line"># mknod -m 666 .&#x2F;dev&#x2F;tty c 5 0</span><br><span class="line"># mknod -m 666 .&#x2F;dev&#x2F;ttyS0 c 4 64</span><br><span class="line"></span><br><span class="line">NOTE: mknod 用指定名称产生一个FIFO（命名管道），字元专用或块专用档案,通常，一个专用档案并不在磁碟上占用空间，仅仅是为作业系统提供交流，而不是为资料存贮服务。一般地，专用档案会指向一个硬体装置（如：磁碟、磁带、印表机、虚拟控制台）或作业系统提供的服务（如：&#x2F;dev&#x2F;null, &#x2F;dev&#x2F;random）。</span><br></pre></td></tr></table></figure>
+<h4 id="编译busybox"><a href="#编译busybox" class="headerlink" title="编译busybox"></a>编译busybox</h4><p>任何Linux发行版都需要一些基础的命令以便让系统正确运行（如<code>mount</code>, <code>ls</code>, <code>pwd</code>, <code>ifconfig</code>, <code>cd</code>, <code>mkdir</code>, <code>touch</code>, <code>rm</code>, <code>vi</code> 等等）。我们构建的操作系统当然也需要这些工具。一般而言有两种方法：</p>
+<ul>
+<li>单独下载每个工具的源代码，编译安装</li>
+<li>使用busybox</li>
+</ul>
+<p>busybox能够通过一个单独的可执行文件提供多种UNIX工具集的的简化版本。虽然busybox提供的工具的选项并不全面，但亦足以胜任大部分的任务。busybox尺寸较小，编译较为简单，在嵌入式系统方面使用广泛，有嵌入式 ” 瑞士军刀“美誉，在此我们选择第二种方式。</p>
+<p>获取源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># cd &#x2F;home&#x2F;sun&#x2F;linux_core</span><br><span class="line"># curl https:&#x2F;&#x2F;busybox.net&#x2F;downloads&#x2F;busybox-1.26.2.tar.bz2 | tar xjf -</span><br><span class="line"># cd busybox-1.26.2</span><br></pre></td></tr></table></figure>
+<p>配置编译选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">生成默认配置：</span><br><span class="line"></span><br><span class="line"># make defconfig</span><br><span class="line"></span><br><span class="line">启动配置编辑器：</span><br><span class="line"></span><br><span class="line"># make menuconfig</span><br><span class="line"></span><br><span class="line">由于我们没有编译libc，因此需要直接编译出静态的可执行文件（即：不依赖任何动态链接库）</span><br><span class="line"></span><br><span class="line">-&gt; Busybox Settings</span><br><span class="line">  -&gt; Build Options</span><br><span class="line">[*] Build BusyBox as a static binary (no shared libs)</span><br></pre></td></tr></table></figure>
+<p>编译：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make</span><br></pre></td></tr></table></figure>
+<p>安装进根文件系统：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make CONFIG_PREFIX&#x3D;&#x2F;home&#x2F;sun&#x2F;linux_core&#x2F;mini_os&#x2F;rootfs install</span><br></pre></td></tr></table></figure>
+<h4 id="编写一个简单的shell程序"><a href="#编写一个简单的shell程序" class="headerlink" title="编写一个简单的shell程序"></a>编写一个简单的shell程序</h4><p>为了让用户可以控制系统，Linux系统一般会运行一个shell程序。通常来说，shell程序不会是系统启动后运行的第一个进程（也就是init进程），但此次为了简化，在系统启动后直接运行自己编写的一个shell程序。</p>
+<p>首先，编写shell程序，命名为 init.c  , 并将init.c拷贝到<code> /home/sun/linux_core/mini_os/rootfs</code>然后在该目录下执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -static init.c -o init</span><br></pre></td></tr></table></figure>
+<p>init.c文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;sys&#x2F;wait.h&gt;</span><br><span class="line">#include &lt;sys&#x2F;types.h&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    &#x2F;* 输入的命令行 *&#x2F;</span><br><span class="line">    char cmd[256];</span><br><span class="line">    &#x2F;* 命令行拆解成的各部分，以空指针结尾 *&#x2F;</span><br><span class="line">    char *args[128];</span><br><span class="line">    while (1) &#123;</span><br><span class="line">        &#x2F;* 提示符 *&#x2F;</span><br><span class="line">        printf(&quot;# &quot;);</span><br><span class="line">        fflush(stdin);</span><br><span class="line">        fgets(cmd, 256, stdin);</span><br><span class="line">        &#x2F;* 清理结尾的换行符 *&#x2F;</span><br><span class="line">        int i;</span><br><span class="line">        for (i &#x3D; 0; cmd[i] !&#x3D; &#39;\n&#39;; i++)</span><br><span class="line">            ;</span><br><span class="line">        cmd[i] &#x3D; &#39;\0&#39;;</span><br><span class="line">        &#x2F;* 拆解命令行 *&#x2F;</span><br><span class="line">        args[0] &#x3D; cmd;</span><br><span class="line">        for (i &#x3D; 0; *args[i]; i++)</span><br><span class="line">            for (args[i+1] &#x3D; args[i] + 1; *args[i+1]; args[i+1]++)</span><br><span class="line">                if (*args[i+1] &#x3D;&#x3D; &#39; &#39;) &#123;</span><br><span class="line">                    *args[i+1] &#x3D; &#39;\0&#39;;</span><br><span class="line">                    args[i+1]++;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">        args[i] &#x3D; NULL;</span><br><span class="line"></span><br><span class="line">        &#x2F;* 没有输入命令 *&#x2F;</span><br><span class="line">        if (!args[0])</span><br><span class="line">            continue;</span><br><span class="line"></span><br><span class="line">        &#x2F;* 内建命令 *&#x2F;</span><br><span class="line">        if (strcmp(args[0], &quot;cd&quot;) &#x3D;&#x3D; 0) &#123;</span><br><span class="line">            if (args[1])</span><br><span class="line">                chdir(args[1]);</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        if (strcmp(args[0], &quot;pwd&quot;) &#x3D;&#x3D; 0) &#123;</span><br><span class="line">            char wd[4096];</span><br><span class="line">            puts(getcwd(wd, 4096));</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        if (strcmp(args[0], &quot;exit&quot;) &#x3D;&#x3D; 0)</span><br><span class="line">            return 0;</span><br><span class="line"></span><br><span class="line">        &#x2F;* 外部命令 *&#x2F;</span><br><span class="line">        pid_t pid &#x3D; fork();</span><br><span class="line">        if (pid &#x3D;&#x3D; 0) &#123;</span><br><span class="line">            &#x2F;* 子进程 *&#x2F;</span><br><span class="line">            execvp(args[0], args);</span><br><span class="line">            &#x2F;* execvp失败 *&#x2F;</span><br><span class="line">            return 255;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;* 父进程 *&#x2F;</span><br><span class="line">        wait(NULL);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="运行操作系统"><a href="#运行操作系统" class="headerlink" title="运行操作系统"></a>运行操作系统</h4><p>我们编译的操作系统并不包含引导器，因此无法直接运行在物理机中，这里选择QEMU来运行这个操作系统。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y qemu-system-x86</span><br></pre></td></tr></table></figure>
+<p>为了让QEMU读取文件系统，我们需要对文件系统进行打包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;home&#x2F;sun&#x2F;linux_core&#x2F;mini-os&#x2F;rootfs</span><br><span class="line">find . | cpio -oHnewc | gzip &gt; ..&#x2F;initramfs.gz</span><br></pre></td></tr></table></figure>
+<p>运行操作系统：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cd &#x2F;home&#x2F;sun&#x2F;linux_core&#x2F;mini-os</span><br><span class="line">sudo qemu-system-x86_64 -kernel bzImage -initrd initramfs.gz -append &quot;root&#x3D;&#x2F;home&#x2F;sun&#x2F;linux_core&#x2F;mini_os&#x2F;rootfs rdinit&#x3D;&#x2F;init&quot;</span><br></pre></td></tr></table></figure>
+<p>如果一切顺利，你按回车键时屏幕上将打印出<code># </code>这样的提示符，可以输入命令。</p>
+<p>如下图：</p>
+<p><img src="/assets/img/0005.jpg"></p>
+<p>在宿主机上以root权限执行<code>killall qemu-system-x86_64</code>可以关闭QEMU模拟器,或者直接叉掉。</p>
+<p>到这里就完成了一个精简Linux系统的制作。</p>
+<p>接下来的预期：裁剪并制作成可以物理机安装的iso镜像。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">python3</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCv</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内核裁剪</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">.exe</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">qemu</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://datascript.top/2020/09/13/linux_core/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/06/13/qtscrcpy/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">手机投屏开源软件scrcpy常用功能的QT封装</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">获取内核源码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E8%A3%81%E5%89%AA%E5%86%85%E6%A0%B8"><span class="toc-number">2.</span> <span class="toc-text">编译裁剪内核</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E6%A0%B9%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">制作根文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91busybox"><span class="toc-number">4.</span> <span class="toc-text">编译busybox</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84shell%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.</span> <span class="toc-text">编写一个简单的shell程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">6.</span> <span class="toc-text">运行操作系统</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -220,9 +390,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
