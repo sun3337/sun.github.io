@@ -189,7 +189,7 @@
 <h4 id="linux-centOs-8-下实际操作的一个示例："><a href="#linux-centOs-8-下实际操作的一个示例：" class="headerlink" title="linux(centOs 8)下实际操作的一个示例："></a>linux(centOs 8)下实际操作的一个示例：</h4><p>1、cd desktop<br>2、mkdir mygit   //新建名为mygit的文件夹<br>3、cd mygit       //进入名为mygit的文件夹<br>4、touch text.html  //新建名为text.html的文件<br>5、git init          //初始化git仓库<br>6、git config –global user.name ‘sun’  //配置全局用户名<br>7、git config –global user.email ‘xx@qq.com’  //配置全局用户邮箱<br>8、git add text.html   //添加要提交的text.html文件<br>   git add .html       //添加要提交的后缀名为.html的文件<br>   git add .          //添加要提交的在mygit文件夹下的所有文件<br>9、git status          //查看此时状态，发现text.html文件已经添加<br>10、git commit         //提交text.html文件到本地仓库<br>11、假如修改了text.html文件里的内容，使用git status可以看到提示：“修改：     text.html”<br>12、git add .    //更新添加要提交的文件<br>13、git commit -m ‘changed’  //提交到本地仓库，描述信息为’changed’</p>
 <h4 id="屏蔽-mygit-文件夹下不想上传的文件-文件夹"><a href="#屏蔽-mygit-文件夹下不想上传的文件-文件夹" class="headerlink" title="屏蔽 mygit 文件夹下不想上传的文件/文件夹"></a>屏蔽 mygit 文件夹下不想上传的文件/文件夹</h4><p>1、touch .gitignore //在 mygit 文件夹下新建名为  <code>.gitignore</code> 的文件<br>2、touch text.txt    //在mygit文件夹下新建text.txt文件(不想上传的文件)<br>3、vim .gitignore   //打开该文件，并将 <code>text.txt</code> 写入其中后退出<br>4、git status   //此时查看就不会再看到text.txt这个不想上传的文件了<br>5、屏蔽文件夹的方式同理，只是在.gitignore文件里通常写为  <code>/text</code>  (此时text 为文件夹名)</p>
 <h4 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h4><p>1、git branch one  //创建名为 one 的分支<br>2、git checkout one  //切换到分支one<br>3、在分支one里所做的操作，不影响主分支（master）里的状态，比如说，在分支one里面所新建的文件，在切换到主分支后就不会出现<br>4、git merge one   //在主分支下使用此命令将one分支下的所做工作合并到主分支下</p>
-<h4 id="将本地仓库文件发布到远程guthub仓库"><a href="#将本地仓库文件发布到远程guthub仓库" class="headerlink" title="将本地仓库文件发布到远程guthub仓库"></a>将本地仓库文件发布到远程guthub仓库</h4><p>1、首先在github上新建一个仓库，建好之后的页面上有操作信息<br>2、git remote  //查看有没有远程orign  （一般没有）<br>3、git remote add origin <a href="mailto:&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:sun3337/demo.git  //添加远程orign</p>
+<h4 id="将本地仓库文件发布到远程guthub仓库"><a href="#将本地仓库文件发布到远程guthub仓库" class="headerlink" title="将本地仓库文件发布到远程guthub仓库"></a>将本地仓库文件发布到远程guthub仓库</h4><p>1、首先在github上新建一个仓库，建好之后的页面上有操作信息<br>2、git remote  //查看有没有远程orign  （一般没有）<br>3、git remote add origin <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#109;">&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#109;</a>:sun3337/demo.git  //添加远程orign</p>
 <p>​      git remote remove origin                         //删除本地目录下关联的远程库</p>
 <p>4、git push -u origin master    //发布本地仓库文件到远程guthub仓库<br>5、也可以自己增加  README 文件，先添加再提交到本地，最后推到远程guthub仓库，这一步可以直接使用  git push 发布</p>
 <p>6、如果在发布时出现如下错误：`fatal: Could not read from remote repository.</p>
@@ -471,11 +471,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">stm32</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx+http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,27 +479,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">rtmp</a>
+                <a href="javascript:void(0)" class="js-tag color5">内核裁剪</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx+http</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">qt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+                <a href="javascript:void(0)" class="js-tag color5">qemu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,23 +503,39 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">rtmp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">stm32</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">qt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">文学</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">《借我一生》</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内核裁剪</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">qemu</a>
               </li>
             
             <div class="clearfix"></div>
