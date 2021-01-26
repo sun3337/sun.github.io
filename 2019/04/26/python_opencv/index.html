@@ -6,20 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://datascript.top">
-  <title>Linux搭建stm32工作环境 | PAI13</title>
+  <title>Python3 如何利用OpenCv 实现电脑摄像头自动捕捉图像  并且打包python程序为Windows应用程序  后缀为 .exe | PAI13</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="**说明：操作系统：deepin  20">
+  <meta name="description" content="**说明：博客内容适用于有一定编程基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux搭建stm32工作环境">
-<meta property="og:url" content="http://datascript.top/2019/01/01/linux%E9%85%8D%E7%BD%AE%E6%90%AD%E5%BB%BAstm32%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:title" content="Python3 如何利用OpenCv 实现电脑摄像头自动捕捉图像  并且打包python程序为Windows应用程序  后缀为 .exe">
+<meta property="og:url" content="http://datascript.top/2019/04/26/python_opencv/index.html">
 <meta property="og:site_name" content="PAI13">
-<meta property="og:description" content="**说明：操作系统：deepin  20">
+<meta property="og:description" content="**说明：博客内容适用于有一定编程基础">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-01-01T15:05:56.000Z">
-<meta property="article:modified_time" content="2020-12-30T10:53:51.695Z">
+<meta property="article:published_time" content="2019-04-26T15:03:00.000Z">
+<meta property="article:modified_time" content="2021-01-26T08:56:27.986Z">
 <meta property="article:author" content="PAI13">
-<meta property="article:tag" content="stm32">
-<meta property="article:tag" content="linux">
+<meta property="article:tag" content="python3">
+<meta property="article:tag" content="OpenCv">
+<meta property="article:tag" content=".exe">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="PAI13" type="application/atom+xml">
@@ -52,10 +53,10 @@
 			<img src="/assets/img/touxiang.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">孙春辉</a></h1>
+		  <h1 class="header-author"><a href="/">孙春辉个人站</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">...But that yesterday.</p>
+		<p class="header-subtitle">不自见  故明</p>
 		
 
 		<nav class="header-menu">
@@ -107,10 +108,10 @@
 				<img src="/assets/img/touxiang.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">孙春辉</h1>
+			  <h1 class="header-author js-header-author">孙春辉个人站</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>...But that yesterday.<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>不自见  故明<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -149,73 +150,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-linux配置搭建stm32环境" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-python_opencv" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Linux搭建stm32工作环境
+      Python3 如何利用OpenCv 实现电脑摄像头自动捕捉图像  并且打包python程序为Windows应用程序  后缀为 .exe
     </h1>
   
 
         
-        <a href="/2019/01/01/linux%E9%85%8D%E7%BD%AE%E6%90%AD%E5%BB%BAstm32%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-  	<time datetime="2019-01-01T15:05:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-01</time>
+        <a href="/2019/04/26/python_opencv/" class="archive-article-date">
+  	<time datetime="2019-04-26T15:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>**说明：操作系统：deepin  20</p>
+        <p>**说明：博客内容适用于有一定编程基础</p>
 <a id="more"></a>
 
-
-
-<p>操作系统：deepin  20</p>
-<p>stm32cubemx  和STM32CubeProgrammer需要java环境，需要下载安装jre<br> oracle官网下载jre  账号可以百度</p>
-<p>手动安装：</p>
-<p>终端切换到jre下载目录,将其解压到 /usr/lib/java 目录。</p>
-<p>sudo tar zxvf jdk-8u172-linux-x64.tar.gz -C /usr/lib/java</p>
-<p>将此jre注册到系统中：</p>
-<p>sudo update-alternatives –install /usr/bin/java java /usr/lib/java/jre1.8.0_172/bin/java 300</p>
-<p>切换jre：<br>sudo update-alternatives –config java<br>deepin  一般会默认只有这一个  可以忽略这一步</p>
-<p>配置环境变量：<br>sudo vim /etc/profile<br>添加如下代码：</p>
-<p>export JAVA_HOME=/usr/lib/java/jre1.8.0_261<br>export JRE_HOME=${JAVA_HOME}/jre<br>export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib<br>export PATH=${JAVA_HOME}/bin:$PATH</p>
-<p>使用  Java -version  验证安装是否成功</p>
-<p>oracle 官网下载  stm32cubemx  和stm32programer  这两个Linux版<br>下载后解压   解压后的文件夹里包含三个平台版本，先不要删除其他不用的  不然安装不成功<br>等安装成功后再一块删除<br>直接双击运行即可   给与运行权限   或者终端通过  chmod 777 文件名    给与权限变成可执行文件</p>
-<p>stm32cubemx  和stm32programer   安装过程一样<br>stm32cubemx   安装完进入后要先安装stm32HAL库</p>
-<p>stlink  驱动安装：</p>
-<p>1、安装依赖包</p>
-<p>sudo apt-get install libusb-1.0</p>
-<p>sudo apt-get install cmake</p>
-<p>sudo apt-get install libgtk-3-dev</p>
-<p>2、下载源码</p>
-<p>git clone <a target="_blank" rel="noopener" href="https://github.com/texane/stlink.git">https://github.com/texane/stlink.git</a><br>不止这个地址有   看情况更改   如果失效更改</p>
-<p>3、编译</p>
-<p>$ cd stlink</p>
-<p>$ git branch -a   (以下版本根据这个命令下的选择版本对应更改)</p>
-<p>$ git checkout v1.4.0-patch</p>
-<p>$ make release</p>
-<p>$ make debug</p>
-<p>$ cd build</p>
-<p>$ cmake -DCMAKE_BUILD_TYPE=Debug ..</p>
-<p>$ make</p>
-<p>$ cd Release; sudo make install；sudo ldconfig</p>
-<p>$ cd  ../..  (回到stlink目录下)</p>
-<p>$ sudo  cp  etc/udev/rules.d/*  /etc/udev/rules.d/</p>
-<p>$ udevadm control –reload-rules</p>
-<p>$ udevadm trigger</p>
-<p>测试：<br>st-info –version</p>
-<p>会看到类似如下提示:</p>
-<p>v1.4.0</p>
-<p>或者deepin商店进行安装  直接搜stlink  应该可以  没试过</p>
-<p>跑一个例子吧：</p>
-<p>打开stm32cubemx进行新建工程，然后最后选择输出为Makefile代码，<br>然后vs code打开代码文件，在  core  文件夹下  有.h  和.c文件   可以编程执行想要的单片机功能。<br>终端安装交叉编译器：sudo apt install gcc-arm-none-eabi<br>然后直接终端本目录下   直接 make   就会编译完成。<br>编译完成后，文件夹下会有bulid文件夹，这里有  .elf文件  .hex  文件   这两个文件用于下载。</p>
-<p>下载：<br>打开stm32programer ，然后点下载，右侧先连接stlink，选择  .elf文件即可。<br>也可以stlink直接下载，选择  .hex文件直接下载。</p>
-<p>当然也有其它方式，暂时先这样使用。</p>
+<h2 id="安装opencv的过程"><a href="#安装opencv的过程" class="headerlink" title="安装opencv的过程"></a>安装opencv的过程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i http:&#x2F;&#x2F;pypi.douban.com&#x2F;simple&#x2F; opencv-python --trusted-host&#x3D;pypi.douban.com</span><br></pre></td></tr></table></figure>
+<p>如果报错，把numpy和opencv都更新到最新版本，如果提示权限不够 ，那么以管理员方式运行cmd命令行（不会百度就知道），可能会提示你的pip不是最新版本，这时通过cd 命令切换到pip这个应用程序的根目录执行更新命令即可，根目录就是python安装目录中的script/lib目录（如果不是百度即可），pip更新命令为<br><code>python -m pip install --upgrade pip</code></p>
+<h2 id="程序代码"><a href="#程序代码" class="headerlink" title="程序代码"></a>程序代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from os import mkdir</span><br><span class="line">from os.path import isdir</span><br><span class="line">import datetime</span><br><span class="line">from time import sleep</span><br><span class="line">import cv2</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    #参数0表示笔记本自带摄像头</span><br><span class="line">    cap &#x3D; cv2.VideoCapture(0)</span><br><span class="line">    #获取当前日期时间，例如2019-05-26 23：11：00</span><br><span class="line">    now &#x3D; str(datetime.datetime.now())[:19].replace(&#39;:&#39;,&#39;_&#39;)</span><br><span class="line">    if not isdir(now[:10]):</span><br><span class="line">        mkdir(now[:10])</span><br><span class="line">    #捕捉当前图像，rep&#x3D;True表示成功，False表示失败</span><br><span class="line">    ret, frame &#x3D; cap.read()</span><br><span class="line">    if ret:</span><br><span class="line">        #保存图像，以当前日期时间为文件名</span><br><span class="line">        fn &#x3D; now[:10]+&#39;\\&#39;+now+&#39;.jpg&#39;</span><br><span class="line">        cv2.imwrite(fn,frame)</span><br><span class="line">    #每5秒捕捉一次图像</span><br><span class="line">    sleep(5)</span><br><span class="line">    cap.release()</span><br></pre></td></tr></table></figure>
+<h2 id="打包成为-exe应用程序"><a href="#打包成为-exe应用程序" class="headerlink" title="打包成为.exe应用程序"></a>打包成为.exe应用程序</h2><p>1、使用pip第三方管理工具下载Pyinstaller工具,这样系统会自动检测符合你当前python版本需要的Pyinstaller版本。</p>
+<p>2、下载完成后，寻找到它，知道它在哪个文件夹。（使用pip下载的工具包都在你安装python目录的scripts文件夹里，和pip.exe在同一个文件夹里）。</p>
+<p>3、然后打开cmd命令，输入以下命令：Pyinstaller -w -F 和你需要打包的.py文件所在的路径，然后敲enter键等待完成，正常情况下输出的.exe文件在命令行的倒数第二行。</p>
+<p>4、备注：-w(小写)命令是屏蔽.exe文件运行后出现的黑色程序控制台，-F是只产生.exe文件，打包比较干净，坏处是比不加-F命令运行过程慢。</p>
+<p>5、最后在倒数第二行出现的路径中找到这个.exe程序发送其它电脑验证即可。</p>
+<h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><p>这篇博客，程序使用的是 微信公众号  python小屋 董付国老师的程序 我在此处只是讲述本人验证过该程序后所产生的经验和打包为Windows应用程序的过程  主要用于记录和学习经验总结</p>
 
       
 
@@ -229,11 +195,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">stm32</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">python3</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCv</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">.exe</a>
         		</li>
       		
 		</ul>
@@ -289,7 +259,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://datascript.top/2019/01/01/linux%E9%85%8D%E7%BD%AE%E6%90%AD%E5%BB%BAstm32%E7%8E%AF%E5%A2%83/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://datascript.top/2019/04/26/python_opencv/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -303,18 +273,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/01/13/demo/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/06/01/linux%E9%85%8D%E7%BD%AE%E6%90%AD%E5%BB%BAstm32%E7%8E%AF%E5%A2%83/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          demo
+          Linux搭建stm32工作环境
         
       </div>
     </a>
   
   
-    <a href="/2017/01/13/%E5%80%9F%E6%88%91%E4%B8%80%E7%94%9F%E6%9C%89%E6%84%9F/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">读余秋雨《借我一生有感》</div>
+    <a href="/2019/01/15/my_learn/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">learn_ing</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -341,7 +311,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85opencv%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">安装opencv的过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">程序代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E6%88%90%E4%B8%BA-exe%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">打包成为.exe应用程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E"><span class="toc-number">3.0.1.</span> <span class="toc-text">声明</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>

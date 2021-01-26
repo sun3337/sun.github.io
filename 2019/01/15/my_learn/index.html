@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://datascript.top">
-  <title>My learn | PAI13</title>
+  <title>learn_ing | PAI13</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="**direction ：This&#96;s my learning experience!">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My learn">
+<meta property="og:title" content="learn_ing">
 <meta property="og:url" content="http://datascript.top/2019/01/15/my_learn/index.html">
 <meta property="og:site_name" content="PAI13">
 <meta property="og:description" content="**direction ：This&#96;s my learning experience!">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-01-15T15:05:56.000Z">
-<meta property="article:modified_time" content="2020-12-30T10:53:59.763Z">
+<meta property="article:modified_time" content="2021-01-26T08:55:03.244Z">
 <meta property="article:author" content="PAI13">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -52,10 +52,10 @@
 			<img src="/assets/img/touxiang.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">孙春辉</a></h1>
+		  <h1 class="header-author"><a href="/">孙春辉个人站</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">...But that yesterday.</p>
+		<p class="header-subtitle">不自见  故明</p>
 		
 
 		<nav class="header-menu">
@@ -107,10 +107,10 @@
 				<img src="/assets/img/touxiang.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">孙春辉</h1>
+			  <h1 class="header-author js-header-author">孙春辉个人站</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>...But that yesterday.<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>不自见  故明<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -156,7 +156,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      My learn
+      learn_ing
     </h1>
   
 
@@ -189,7 +189,7 @@
 <h4 id="linux-centOs-8-下实际操作的一个示例："><a href="#linux-centOs-8-下实际操作的一个示例：" class="headerlink" title="linux(centOs 8)下实际操作的一个示例："></a>linux(centOs 8)下实际操作的一个示例：</h4><p>1、cd desktop<br>2、mkdir mygit   //新建名为mygit的文件夹<br>3、cd mygit       //进入名为mygit的文件夹<br>4、touch text.html  //新建名为text.html的文件<br>5、git init          //初始化git仓库<br>6、git config –global user.name ‘sun’  //配置全局用户名<br>7、git config –global user.email ‘xx@qq.com’  //配置全局用户邮箱<br>8、git add text.html   //添加要提交的text.html文件<br>   git add .html       //添加要提交的后缀名为.html的文件<br>   git add .          //添加要提交的在mygit文件夹下的所有文件<br>9、git status          //查看此时状态，发现text.html文件已经添加<br>10、git commit         //提交text.html文件到本地仓库<br>11、假如修改了text.html文件里的内容，使用git status可以看到提示：“修改：     text.html”<br>12、git add .    //更新添加要提交的文件<br>13、git commit -m ‘changed’  //提交到本地仓库，描述信息为’changed’</p>
 <h4 id="屏蔽-mygit-文件夹下不想上传的文件-文件夹"><a href="#屏蔽-mygit-文件夹下不想上传的文件-文件夹" class="headerlink" title="屏蔽 mygit 文件夹下不想上传的文件/文件夹"></a>屏蔽 mygit 文件夹下不想上传的文件/文件夹</h4><p>1、touch .gitignore //在 mygit 文件夹下新建名为  <code>.gitignore</code> 的文件<br>2、touch text.txt    //在mygit文件夹下新建text.txt文件(不想上传的文件)<br>3、vim .gitignore   //打开该文件，并将 <code>text.txt</code> 写入其中后退出<br>4、git status   //此时查看就不会再看到text.txt这个不想上传的文件了<br>5、屏蔽文件夹的方式同理，只是在.gitignore文件里通常写为  <code>/text</code>  (此时text 为文件夹名)</p>
 <h4 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h4><p>1、git branch one  //创建名为 one 的分支<br>2、git checkout one  //切换到分支one<br>3、在分支one里所做的操作，不影响主分支（master）里的状态，比如说，在分支one里面所新建的文件，在切换到主分支后就不会出现<br>4、git merge one   //在主分支下使用此命令将one分支下的所做工作合并到主分支下</p>
-<h4 id="将本地仓库文件发布到远程guthub仓库"><a href="#将本地仓库文件发布到远程guthub仓库" class="headerlink" title="将本地仓库文件发布到远程guthub仓库"></a>将本地仓库文件发布到远程guthub仓库</h4><p>1、首先在github上新建一个仓库，建好之后的页面上有操作信息<br>2、git remote  //查看有没有远程orign  （一般没有）<br>3、git remote add origin <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#x6d;</a>:sun3337/demo.git  //添加远程orign</p>
+<h4 id="将本地仓库文件发布到远程guthub仓库"><a href="#将本地仓库文件发布到远程guthub仓库" class="headerlink" title="将本地仓库文件发布到远程guthub仓库"></a>将本地仓库文件发布到远程guthub仓库</h4><p>1、首先在github上新建一个仓库，建好之后的页面上有操作信息<br>2、git remote  //查看有没有远程orign  （一般没有）<br>3、git remote add origin <a href="mailto:&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:sun3337/demo.git  //添加远程orign</p>
 <p>​      git remote remove origin                         //删除本地目录下关联的远程库</p>
 <p>4、git push -u origin master    //发布本地仓库文件到远程guthub仓库<br>5、也可以自己增加  README 文件，先添加再提交到本地，最后推到远程guthub仓库，这一步可以直接使用  git push 发布</p>
 <p>6、如果在发布时出现如下错误：`fatal: Could not read from remote repository.</p>
@@ -325,18 +325,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/02/13/hexo_move_home&install/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/04/26/python_opencv/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          hexo_move_home&amp;install
+          Python3 如何利用OpenCv 实现电脑摄像头自动捕捉图像  并且打包python程序为Windows应用程序  后缀为 .exe
         
       </div>
     </a>
   
   
-    <a href="/2019/01/14/hexo_%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hexo博客主题优化</div>
+    <a href="/2018/12/13/hexo_move_home&install/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hexo_move_home&amp;install</div>
       <i class="icon-circle-right"></i>
     </a>
   
