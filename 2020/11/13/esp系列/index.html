@@ -6,22 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://datascript.top">
-  <title>Python3 如何利用OpenCv 实现电脑摄像头自动捕捉图像  并且打包python程序为Windows应用程序  后缀为 .exe | PAI13</title>
+  <title>esp32/8266系列上手经验 | PAI13</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="**说明：博客内容适用于有一定编程基础">
+  <meta name="description" content="**说明：arduino IDE  &#x2F; 官方Wiki">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python3 如何利用OpenCv 实现电脑摄像头自动捕捉图像  并且打包python程序为Windows应用程序  后缀为 .exe">
-<meta property="og:url" content="http://datascript.top/2019/04/26/python_opencv/index.html">
+<meta property="og:title" content="esp32&#x2F;8266系列上手经验">
+<meta property="og:url" content="http://datascript.top/2020/11/13/esp%E7%B3%BB%E5%88%97/index.html">
 <meta property="og:site_name" content="PAI13">
-<meta property="og:description" content="**说明：博客内容适用于有一定编程基础">
+<meta property="og:description" content="**说明：arduino IDE  &#x2F; 官方Wiki">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-04-26T15:03:00.000Z">
-<meta property="article:modified_time" content="2021-01-26T08:56:27.986Z">
+<meta property="og:image" content="http://datascript.top/assets/img/esp32cam.gif">
+<meta property="og:image" content="http://datascript.top/assets/img/esp8266.gif">
+<meta property="article:published_time" content="2020-11-13T15:05:56.000Z">
+<meta property="article:modified_time" content="2021-02-06T08:05:59.391Z">
 <meta property="article:author" content="PAI13">
-<meta property="article:tag" content="python3">
-<meta property="article:tag" content="OpenCv">
-<meta property="article:tag" content=".exe">
+<meta property="article:tag" content="esp32">
+<meta property="article:tag" content="esp8266">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://datascript.top/assets/img/esp32cam.gif">
   
     <link rel="alternative" href="/atom.xml" title="PAI13" type="application/atom+xml">
   
@@ -150,38 +152,40 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-python_opencv" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-esp系列" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Python3 如何利用OpenCv 实现电脑摄像头自动捕捉图像  并且打包python程序为Windows应用程序  后缀为 .exe
+      esp32/8266系列上手经验
     </h1>
   
 
         
-        <a href="/2019/04/26/python_opencv/" class="archive-article-date">
-  	<time datetime="2019-04-26T15:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-26</time>
+        <a href="/2020/11/13/esp%E7%B3%BB%E5%88%97/" class="archive-article-date">
+  	<time datetime="2020-11-13T15:05:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>**说明：博客内容适用于有一定编程基础</p>
+        <p>**说明：arduino IDE  / 官方Wiki</p>
 <a id="more"></a>
 
-<h2 id="安装opencv的过程"><a href="#安装opencv的过程" class="headerlink" title="安装opencv的过程"></a>安装opencv的过程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i http:&#x2F;&#x2F;pypi.douban.com&#x2F;simple&#x2F; opencv-python --trusted-host&#x3D;pypi.douban.com</span><br></pre></td></tr></table></figure>
-<p>如果报错，把numpy和opencv都更新到最新版本，如果提示权限不够 ，那么以管理员方式运行cmd命令行（不会百度就知道），可能会提示你的pip不是最新版本，这时通过cd 命令切换到pip这个应用程序的根目录执行更新命令即可，根目录就是python安装目录中的script/lib目录（如果不是百度即可），pip更新命令为<br><code>python -m pip install --upgrade pip</code></p>
-<h2 id="程序代码"><a href="#程序代码" class="headerlink" title="程序代码"></a>程序代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from os import mkdir</span><br><span class="line">from os.path import isdir</span><br><span class="line">import datetime</span><br><span class="line">from time import sleep</span><br><span class="line">import cv2</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    #参数0表示笔记本自带摄像头</span><br><span class="line">    cap &#x3D; cv2.VideoCapture(0)</span><br><span class="line">    #获取当前日期时间，例如2019-05-26 23：11：00</span><br><span class="line">    now &#x3D; str(datetime.datetime.now())[:19].replace(&#39;:&#39;,&#39;_&#39;)</span><br><span class="line">    if not isdir(now[:10]):</span><br><span class="line">        mkdir(now[:10])</span><br><span class="line">    #捕捉当前图像，rep&#x3D;True表示成功，False表示失败</span><br><span class="line">    ret, frame &#x3D; cap.read()</span><br><span class="line">    if ret:</span><br><span class="line">        #保存图像，以当前日期时间为文件名</span><br><span class="line">        fn &#x3D; now[:10]+&#39;\\&#39;+now+&#39;.jpg&#39;</span><br><span class="line">        cv2.imwrite(fn,frame)</span><br><span class="line">    #每5秒捕捉一次图像</span><br><span class="line">    sleep(5)</span><br><span class="line">    cap.release()</span><br></pre></td></tr></table></figure>
-<h2 id="打包成为-exe应用程序"><a href="#打包成为-exe应用程序" class="headerlink" title="打包成为.exe应用程序"></a>打包成为.exe应用程序</h2><p>1、使用pip第三方管理工具下载Pyinstaller工具,这样系统会自动检测符合你当前python版本需要的Pyinstaller版本。</p>
-<p>2、下载完成后，寻找到它，知道它在哪个文件夹。（使用pip下载的工具包都在你安装python目录的scripts文件夹里，和pip.exe在同一个文件夹里）。</p>
-<p>3、然后打开cmd命令，输入以下命令：Pyinstaller -w -F 和你需要打包的.py文件所在的路径，然后敲enter键等待完成，正常情况下输出的.exe文件在命令行的倒数第二行。</p>
-<p>4、备注：-w(小写)命令是屏蔽.exe文件运行后出现的黑色程序控制台，-F是只产生.exe文件，打包比较干净，坏处是比不加-F命令运行过程慢。</p>
-<p>5、最后在倒数第二行出现的路径中找到这个.exe程序发送其它电脑验证即可。</p>
-<h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><p>这篇博客，程序使用的是 微信公众号  python小屋 董付国老师的程序 我在此处只是讲述本人验证过该程序后所产生的经验和打包为Windows应用程序的过程  主要用于记录和学习经验总结</p>
+
+
+
+
+<p>暂时上手了esp32CAM和esp8266，为了方便快速开发使用的是arduino IDE,当然也可以使用Linux系统按照安信可给的Wiki进行相关项目的二次开发，先看下进行应用项目的效果吧，如下：</p>
+<p><img src="/assets/img/esp32cam.gif">        <img src="/assets/img/esp8266.gif"></p>
+<p>左一图是esp32CAM的一个应用，迷你照相机，右图是esp8266实现的显示天气预报、时钟和B站粉丝数功能。esp32使用的是安信可的，网上购买即可；esp8266模块网上购买即可。</p>
+<p>esp32cam项目应用案例地址：<a target="_blank" rel="noopener" href="https://randomnerdtutorials.com/esp32-cam-take-photo-save-microsd-card/">https://randomnerdtutorials.com/esp32-cam-take-photo-save-microsd-card/</a>     除此项目外，该站点还有其它很有意思的项目，环境是aduino IDE ；官网Wiki提供的当然也有一些应用案例，地址：<a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/%E6%91%84%E5%83%8F%E5%A4%B4%E5%BC%80%E5%8F%91%E6%9D%BF_esp32-cam">https://docs.ai-thinker.com/%E6%91%84%E5%83%8F%E5%A4%B4%E5%BC%80%E5%8F%91%E6%9D%BF_esp32-cam</a>  环境是Linux idf ；这些项目案例对于上手esp32系列进行二次开发应该足够了。</p>
+<p>esp8266这个项目应用案例地址：<a target="_blank" rel="noopener" href="https://gitee.com/taijichuangke/bilibili_weather_clock">https://gitee.com/taijichuangke/bilibili_weather_clock</a>  ；应用此案例值得注意的是，oled连接时要接到esp8266模块的硬件i2c引脚上，因此需要看电路图确定。</p>
+<p>另外值得介绍的是，arduino IDE上使用oled,需要使用对应的库，这里使用的是Arduino u8g2 OLED库；如果不会可以参考这篇文章，基本上可以学会arduino IDE上使用oled了，地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dpjcn1990/article/details/92831760">https://blog.csdn.net/dpjcn1990/article/details/92831760</a></p>
+<p>本人应用项目的所有资料分享地址如下：链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1bmY13dWb0TXJp0iNPerlpg">https://pan.baidu.com/s/1bmY13dWb0TXJp0iNPerlpg</a> 提取码: mx2q </p>
 
       
 
@@ -195,15 +199,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">python3</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">esp32</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCv</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">.exe</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">esp8266</a>
         		</li>
       		
 		</ul>
@@ -259,7 +259,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://datascript.top/2019/04/26/python_opencv/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://datascript.top/2020/11/13/esp%E7%B3%BB%E5%88%97/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -273,18 +273,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/06/01/linux%E9%85%8D%E7%BD%AE%E6%90%AD%E5%BB%BAstm32%E7%8E%AF%E5%A2%83/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Linux搭建stm32工作环境
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/15/my_learn/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">learn_ing</div>
+    <a href="/2020/09/13/linux_core/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">构建一个精简的Linux操作系统</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -311,7 +302,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85opencv%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">安装opencv的过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">程序代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E6%88%90%E4%B8%BA-exe%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">打包成为.exe应用程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E"><span class="toc-number">3.0.1.</span> <span class="toc-text">声明</span></a></li></ol></li></ol></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
