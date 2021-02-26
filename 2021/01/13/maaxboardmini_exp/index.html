@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://datascript.top">
-  <title>Archives: 2020 | PAI13</title>
+  <title>MaaxBoard mini使用经验与应用文件服务器和frp内网穿透以及智能家居（工作环境）构造框架 | PAI13</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="PAI13">
-<meta property="og:url" content="http://datascript.top/archives/2020/index.html">
+  <meta name="description" content="**说明：使用的镜像系统：Debian10  64位    内核版本： 4.14.98">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MaaxBoard mini使用经验与应用文件服务器和frp内网穿透以及智能家居（工作环境）构造框架">
+<meta property="og:url" content="http://datascript.top/2021/01/13/maaxboardmini_exp/index.html">
 <meta property="og:site_name" content="PAI13">
+<meta property="og:description" content="**说明：使用的镜像系统：Debian10  64位    内核版本： 4.14.98">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://datascript.top/assets/img/maaxmini.jpg">
+<meta property="og:image" content="http://datascript.top/assets/img/staticip.jpg">
+<meta property="og:image" content="http://datascript.top/assets/img/start.jpg">
+<meta property="article:published_time" content="2021-01-13T15:05:56.000Z">
+<meta property="article:modified_time" content="2021-02-26T09:02:35.179Z">
 <meta property="article:author" content="PAI13">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="maax board mini">
+<meta property="article:tag" content="文件服务器">
+<meta property="article:tag" content="frp内网穿透">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://datascript.top/assets/img/maaxmini.jpg">
   
     <link rel="alternative" href="/atom.xml" title="PAI13" type="application/atom+xml">
   
@@ -143,232 +155,231 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-maaxboardmini_exp" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MaaxBoard mini使用经验与应用文件服务器和frp内网穿透以及智能家居（工作环境）构造框架
+    </h1>
+  
+
+        
+        <a href="/2021/01/13/maaxboardmini_exp/" class="archive-article-date">
+  	<time datetime="2021-01-13T15:05:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-13</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/assets/img/maaxmini.jpg"></p>
+<p>**说明：使用的镜像系统：Debian10  64位    内核版本： 4.14.98</p>
+<a id="more"></a>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1812673579&auto=1&height=66"></iframe>
+
+<p>MaxxBoard mini：2GRAM CPU:1.8GHz 关于MaxxBoard mini 的详细介绍请看这里：<a target="_blank" rel="noopener" href="http://www.embest-tech.cn/prod_view.aspx?TypeId=85&amp;Id=434&amp;Fid=t3:85:3">http://www.embest-tech.cn/prod_view.aspx?TypeId=85&amp;Id=434&amp;Fid=t3:85:3</a></p>
+<h3 id="基本使用测试"><a href="#基本使用测试" class="headerlink" title="基本使用测试"></a>基本使用测试</h3><p>下载系统定制镜像：<a target="_blank" rel="noopener" href="https://www.element14.com/community/community/designcenter/single-board-computers/maaxboard/overview?showTab=2&amp;#e14tab2">https://www.element14.com/community/community/designcenter/single-board-computers/maaxboard/overview?showTab=2&amp;#e14tab2</a></p>
+<p>烧写工具balena：<a target="_blank" rel="noopener" href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a></p>
+<p>工具&amp;软件：读卡器、16G内存卡，建议更大、USB转串口下载器、putty、一个正常的脑袋 哈哈</p>
+<p>出现的问题：内存卡烧写镜像过程中失败，出现很多盘符并提示是否要格式化该内存卡</p>
+<p>解决：</p>
+<p>进入电脑cmd命令行，输入以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DISKPART</span><br><span class="line">LIST DISK</span><br><span class="line">SELECT DISK 1      选中磁盘1    为什么是1   因为看大小就能看出来</span><br><span class="line">CLEAN   清空磁盘</span><br><span class="line">CREATE PARTITION PRIMARY      创建主磁盘分区</span><br><span class="line">ACTIVE       激活磁盘分区   这个一般是本地磁盘用的   内存卡是移动盘  这一步可以忽略 </span><br><span class="line">FORMAT FS&#x3D;FAT32 QUICK    以FAT32格式快速格式化磁盘分区</span><br></pre></td></tr></table></figure>
+<p>这里用到的Maxxboard的引脚如下，更多引脚使用请查看附带资料的硬件原理图介绍：</p>
+<p>gpio 4    5V<br>gpio 9    gnd<br>gpio 8    uart1_txd<br>gpio 10  uart_rxd</p>
+<p>USB转串口下载器连接这些引脚，txd和rxd交叉连接。</p>
+<p>电脑打开putty连接打开串口，打印出系统日志信息，启动完成后出现登录命令行，用户名： root 默认密码：avnet  怎么知道的？看说明书。</p>
+<p>更新系统源列表：默认管理员权限： apt update</p>
+<p>远程桌面连接测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install xrdp     &#x2F;&#x2F;xrdp不知道？搜一下有很多介绍</span><br><span class="line">apt install xfce4</span><br></pre></td></tr></table></figure>
+<p>自带的桌面显示不出来，需要自己安装一个，至于哪一款Linux桌面，对比请看这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenmingjun/p/8506995.html">https://www.cnblogs.com/chenmingjun/p/8506995.html</a></p>
+<p>打开电脑自带的远程桌面连接：输入连接的IP地址即可连接，连接后的效果查看视频效果：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1TX4y1L7fa">https://www.bilibili.com/video/BV1TX4y1L7fa</a></p>
+<iframe src="//player.bilibili.com/player.html?aid=714285622&bvid=BV1TX4y1L7fa&cid=301181371&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" high=“300”> </iframe>
+
+<p>当然也可以使用ssh连接：ssh  <a href="mailto:&#x72;&#111;&#x6f;&#x74;&#x40;&#x31;&#57;&#50;&#46;&#x31;&#x36;&#56;&#46;&#x30;&#46;&#x78;&#x78;&#x78;">&#x72;&#111;&#x6f;&#x74;&#x40;&#x31;&#57;&#50;&#46;&#x31;&#x36;&#56;&#46;&#x30;&#46;&#x78;&#x78;&#x78;</a>           //默认端口22</p>
+<h3 id="应用文件服务器"><a href="#应用文件服务器" class="headerlink" title="应用文件服务器"></a>应用文件服务器</h3><p>详细步骤在之前写的文章，地址如下：</p>
+<p>搭建Nginx服务器：<a href="http://datascript.top/2020/04/13/nginx+rtmp/">http://datascript.top/2020/04/13/nginx+rtmp/</a></p>
+<p>搭建文件服务：<a href="http://datascript.top/2020/05/19/nginx+http">http://datascript.top/2020/05/19/nginx+http</a></p>
+<p>Maxxboard固定IP地址：</p>
+<p><img src="/assets/img/staticip.jpg"></p>
+<h3 id="frp内网穿透"><a href="#frp内网穿透" class="headerlink" title="frp内网穿透"></a>frp内网穿透</h3><p>必要工具：一台云服务器   （推荐国外VPS，便宜）</p>
+<p>分别下载<code>frp</code>到公网服务器和内网服务器：</p>
+<p>VPS： <code> wget https://github.com/fatedier/frp/releases/download/v0.35.1/frp_0.35.1_linux_amd64.tar.gz</code></p>
+<p>本地服务器： <code>wget https://github.com/fatedier/frp/releases/download/v0.35.1/frp_0.35.1_linux_arm64.tar.gz</code></p>
+<p>VPS操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf frp_0.35.1_linux_amd64.tar.gz</span><br><span class="line">cd frp_0.35.1_linux_amd64&#x2F;</span><br><span class="line">rm -f frpc</span><br><span class="line">rm -f frpc.ini</span><br><span class="line">vi frps.ini    &#x2F;&#x2F;修改如下内容</span><br><span class="line">[common]</span><br><span class="line">bind_port &#x3D; 7000         #frp服务端端口</span><br><span class="line">vhost_http_port &#x3D; 8080   #http访问端口</span><br><span class="line">说明：[common]部分是必须有的配置，其中bind_port是自己设定的frp服务端端口，vhost_http_port是自己设定的http访问端口。</span><br></pre></td></tr></table></figure>
+<p>本地服务器操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf frp_0.35.1_linux_amd64.tar.gz</span><br><span class="line">cd frp_0.35.1_linux_amd64&#x2F;</span><br><span class="line">rm -f frps</span><br><span class="line">rm -f frps.ini</span><br><span class="line">vi frpc.ini    &#x2F;&#x2F;修改如下内容</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[common]</span><br><span class="line">server_addr &#x3D; xxx.xx.xxx    &#x2F;&#x2F;VPS ip（外网ip）</span><br><span class="line">server_port &#x3D; 7000             &#x2F;&#x2F;VPS配置设定的端口</span><br><span class="line">通过tcp来连接SSH</span><br><span class="line">[ssh]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_ip &#x3D; 192.168.0.xxx  &#x2F;&#x2F;本机ip</span><br><span class="line">local_port &#x3D; 22       &#x2F;&#x2F;本机ssh端口</span><br><span class="line">remote_port &#x3D; 6000    &#x2F;&#x2F;VPS服务器请求过来的端口</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>暂时配置这些，根据需要可再配置其它服务。</p>
+<p>VPS和本地服务器分别启动frp服务：</p>
+<p>可以编写shell脚本，把命令放入，以便开机自启动脚本，这样就可以开机自启动frp等服务，写了两个自启动脚本：</p>
+<p>ngxrun.sh </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#! &#x2F;bin&#x2F;bash</span><br><span class="line">## to run nginx server</span><br><span class="line"></span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx -c &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</span><br></pre></td></tr></table></figure>
+<p>frpc_auto_run.sh </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#! &#x2F;bin&#x2F;bash</span><br><span class="line">## frpc auto run script</span><br><span class="line"></span><br><span class="line">nohup &#x2F;root&#x2F;frp-dir&#x2F;frp_0.35.1_linux_arm64&#x2F;frpc -c &#x2F;root&#x2F;frp-dir&#x2F;frp_0.35.1_linux_arm64&#x2F;frpc.ini &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</span><br><span class="line">&#x2F;&#x2F;后台运行命令                                                                                         </span><br></pre></td></tr></table></figure>
+<p>VPS端：<code> nohup /root/frp-dir/frp_0.35.1_linux_amd64/frps -c /root/frp-dir/frp_0.35.1_linux_amd64/frps.ini &gt; /dev/null 2&gt;&amp;1 &amp;</code></p>
+<p>先把这些脚本赋予所有权限：<code> chmod 777 xxx.sh</code></p>
+<p>debian 10自启动，<code>vim /etc/rc.local</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh -e</span><br><span class="line">#</span><br><span class="line"># rc.local</span><br><span class="line">#</span><br><span class="line"># This script is executed at the end of each multiuser runlevel.</span><br><span class="line"># Make sure that the script will &quot;exit 0&quot; on success or any other</span><br><span class="line"># value on error.</span><br><span class="line">#</span><br><span class="line"># In order to enable or disable this script just change the execution</span><br><span class="line"># bits.</span><br><span class="line">#</span><br><span class="line"># By default this script does nothing.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo 30000 &gt;  &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;min_free_kbytes</span><br><span class="line"></span><br><span class="line">&#x2F;root&#x2F;ngxrun.sh                                    &#x2F;&#x2F;要自启动脚本路径</span><br><span class="line"></span><br><span class="line">&#x2F;root&#x2F;frpc_auto_run.sh                            &#x2F;&#x2F;要自启动脚本路径</span><br><span class="line"></span><br><span class="line">                                                    </span><br><span class="line">exit 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>内网穿透测试：</p>
+<p><code> ssh root@公网IP -p 6000</code></p>
+<p>最后来张运行图片吧哈哈哈：</p>
+<p><img src="/assets/img/start.jpg"></p>
+<h3 id="智能家居（工作环境）构造框架"><a href="#智能家居（工作环境）构造框架" class="headerlink" title="智能家居（工作环境）构造框架"></a>智能家居（工作环境）构造框架</h3><p>智能环境框架说明：本地服务器有很多应用，比如和电脑在一个局域网内可以通过SSH执行脚本来远程开机，maxxboard mini 也有很多扩展，像iic 、spi等可以远程控制很多东西，也可以安装python环境使用micro python进行更多功能应用开发，控制家电等电器。</p>
+<p>注：本文测试使用VPS为华为云，其它VPS一样。</p>
+<p>很方便的工具分享：FinalShell 、WinSCP</p>
+<p>参考文章：</p>
+<p>自启动：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42809438/article/details/106534993">https://blog.csdn.net/qq_42809438/article/details/106534993</a></p>
+<p>frp内网穿透:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xlchan/p/13643231.html">https://www.cnblogs.com/xlchan/p/13643231.html</a></p>
+<p>本文原创：转载请注明出处</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/13/esp%E7%B3%BB%E5%88%97/" class="archive-article-date">
-  	<time datetime="2020-11-13T15:05:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/13/esp%E7%B3%BB%E5%88%97/">esp32/8266系列上手经验</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">esp32</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">esp8266</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maax board mini</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">文件服务器</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">frp内网穿透</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://datascript.top/2021/01/13/maaxboardmini_exp/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/13/linux_core/" class="archive-article-date">
-  	<time datetime="2020-09-13T15:05:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/11/13/esp%E7%B3%BB%E5%88%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">esp32/8266系列上手经验</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/13/linux_core/">构建一个精简的Linux操作系统</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内核裁剪</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">qemu</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%B5%8B%E8%AF%95"><span class="toc-number">1.</span> <span class="toc-text">基本使用测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">应用文件服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="toc-number">3.</span> <span class="toc-text">frp内网穿透</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%EF%BC%88%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83%EF%BC%89%E6%9E%84%E9%80%A0%E6%A1%86%E6%9E%B6"><span class="toc-number">4.</span> <span class="toc-text">智能家居（工作环境）构造框架</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/13/qtscrcpy/" class="archive-article-date">
-  	<time datetime="2020-06-13T15:05:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-13</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/13/qtscrcpy/">手机投屏开源软件scrcpy常用功能的QT封装</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">qt</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/19/nginx+http/" class="archive-article-date">
-  	<time datetime="2020-05-18T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/19/nginx+http/">linux系统搭建nginx+http文件下载服务器</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx+http</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/13/nginx+rtmp/" class="archive-article-date">
-  	<time datetime="2020-04-13T15:05:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/13/nginx+rtmp/">Linux搭建nginx+rtmp流媒体服务器</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">rtmp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -391,8 +402,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
